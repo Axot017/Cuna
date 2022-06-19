@@ -225,6 +225,9 @@ dependencies = [
 [[package]]
 name = "auth"
 version = "0.1.0"
+dependencies = [
+ "actix-web",
+]
 
 [[package]]
 name = "autocfg"
@@ -390,6 +393,7 @@ name = "entrypoint"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "auth",
 ]
 
 [[package]]
