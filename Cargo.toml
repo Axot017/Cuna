@@ -1,7 +1,2 @@
-[package]
-name = "Cuna"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-actix-web = "4"
+[workspace]
+members = ["crates/*"]
