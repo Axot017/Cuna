@@ -1,4 +1,5 @@
-use actix_web::{get, Responder, HttpResponse, HttpServer, App};
+use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
+use auth::api::controller::AuthController;
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -9,7 +10,10 @@ async fn hello() -> impl Responder {
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-            .service(hello)
+            .service(
+                web::scope("/api")
+                    .service(web::scope("/auth").configure(|c| c.configure_auth_controller())),
+            )
     })
     .bind(("127.0.0.1", 8080))?
     .run()
