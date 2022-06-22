@@ -344,10 +344,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "common"
-version = "0.1.0"
-
-[[package]]
 name = "convert_case"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -498,6 +494,7 @@ version = "0.1.0"
 dependencies = [
  "actix-web",
  "auth",
+ "profile_api",
 ]
 
 [[package]]
@@ -1031,6 +1028,25 @@ checksum = "dd96a1e8ed2596c337f8eae5f24924ec83f5ad5ab21ea8e455d3566c69fbcaf7"
 dependencies = [
  "unicode-ident",
 ]
+
+[[package]]
+name = "profile_adapters"
+version = "0.1.0"
+
+[[package]]
+name = "profile_api"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "chrono",
+ "serde",
+ "serde_json",
+ "sqlx",
+]
+
+[[package]]
+name = "profile_domain"
+version = "0.1.0"
 
 [[package]]
 name = "quote"
