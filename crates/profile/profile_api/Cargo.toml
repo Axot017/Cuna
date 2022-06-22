@@ -1,0 +1,11 @@
+[package]
+name = "profile_api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4"
+chrono = "0.4.19"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sqlx = { version = "0.5", features = ["runtime-actix-rustls", "postgres", "chrono"]}

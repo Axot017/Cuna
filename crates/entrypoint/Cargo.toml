@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 actix-web = "4"
 auth = {path = "../auth"}
+profile_api = {path = "../profile/profile_api"}
