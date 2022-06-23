@@ -1,5 +1,5 @@
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
-use auth::api::controller::AuthController;
+use auth_api::controller::AuthController;
 use profile_api::controller::ProfileController;
 
 #[get("/")]
