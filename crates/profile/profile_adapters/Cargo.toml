@@ -3,6 +3,12 @@ name = "profile_adapters"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+async-trait = "0.1"
+common_domain = { path = "../../common/common_domain" }
+profile_domain = { path = "../profile_domain" }
+sqlx = { version = "0.6", features = [
+  "runtime-actix-rustls",
+  "postgres",
+  "chrono",
+] }

@@ -4,6 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-async-trait = "0.1.56"
+async-trait = "0.1"
 common_domain = { path = "../common_domain" }
-sqlx = { version = "0.6", features = ["runtime-actix-rustls", "postgres", "chrono"]}
+sqlx = { version = "0.6", features = [
+  "runtime-actix-rustls",
+  "postgres",
+  "chrono",
+] }
+

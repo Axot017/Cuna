@@ -562,7 +562,9 @@ version = "0.1.0"
 dependencies = [
  "actix-web",
  "auth_api",
+ "common_domain",
  "profile_api",
+ "sqlx 0.6.0",
 ]
 
 [[package]]
@@ -1142,6 +1144,12 @@ dependencies = [
 [[package]]
 name = "profile_adapters"
 version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "common_domain",
+ "profile_domain",
+ "sqlx 0.6.0",
+]
 
 [[package]]
 name = "profile_api"
@@ -1159,6 +1167,10 @@ dependencies = [
 [[package]]
 name = "profile_domain"
 version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "common_domain",
+]
 
 [[package]]
 name = "quote"
