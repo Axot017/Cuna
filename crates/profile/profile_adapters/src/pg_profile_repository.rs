@@ -6,8 +6,17 @@ use profile_domain::{
 };
 use sqlx::{Postgres, Transaction};
 
+pub enum TransactionResult<T> {
+    Commit(T),
+    Rollback(T),
+}
+
 pub struct PgProfileRepository<'a, 'b: 'a> {
     pub transaction: &'a mut Transaction<'b, Postgres>,
+}
+
+pub trait RepositoryProvider<T> {
+    fn get_repository(&mut self) -> T;
 }
 
 #[async_trait(?Send)]
@@ -22,7 +31,7 @@ impl<'a, 'b: 'a> ProfileRepository for PgProfileRepository<'a, 'b> {
             new_profile.email,
             new_profile.password,
         )
-        .execute(self.transaction)
+        .execute(&mut *self.transaction)
         .await
         .map_err(|_| Error::DbConnectionError)
         .map(|_| (()))
