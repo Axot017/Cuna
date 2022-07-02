@@ -6,4 +6,8 @@ edition = "2021"
 [dependencies]
 actix-web = "4"
 chrono = "0.4.19"
-sqlx = { version = "0.5", features = ["runtime-actix-rustls", "postgres", "chrono"]}
+sqlx = { version = "0.6", features = [
+  "runtime-actix-rustls",
+  "postgres",
+  "chrono",
+] }
