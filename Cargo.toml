@@ -1,3 +1,8 @@
 [workspace]
-members = ["crates/entrypoint", "crates/profile/*", "crates/auth/*", "crates/common/*"]
+members = [
+  "crates/entrypoint",
+  "crates/profile/*",
+  "crates/auth/*",
+  "crates/common/*",
+]
 default-members = ["crates/entrypoint"]

@@ -5,4 +5,5 @@ edition = "2021"
 
 [dependencies]
 async-trait = "0.1"
+async_fn_traits = "0.1.1"
 common_domain = { path = "../../common/common_domain" }
