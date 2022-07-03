@@ -387,16 +387,15 @@ name = "common_api"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "common_domain",
  "serde",
+ "sqlx",
  "validator",
 ]
 
 [[package]]
 name = "common_domain"
 version = "0.1.0"
-dependencies = [
- "async-trait",
-]
 
 [[package]]
 name = "convert_case"
@@ -1127,6 +1126,7 @@ dependencies = [
  "actix-web",
  "chrono",
  "common_api",
+ "common_domain",
  "profile_adapters",
  "profile_domain",
  "serde",
