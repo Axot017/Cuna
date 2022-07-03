@@ -6,7 +6,7 @@ use sqlx::PgExecutor;
 
 pub async fn create_profile(
     executor: impl PgExecutor<'_>,
-    new_profile: ProfileCreationData,
+    new_profile: &ProfileCreationData,
 ) -> Result<()> {
     sqlx::query!(
         "
