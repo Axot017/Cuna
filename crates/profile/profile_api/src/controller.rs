@@ -4,8 +4,7 @@ use actix_web::{
     HttpResponse, Responder, ResponseError,
 };
 
-use common_api::dto::error_dto::ErrorDto;
-use common_domain::transaction_result::TransactionResult;
+use common_api::{dto::error_dto::ErrorDto, with_tx};
 use profile_adapters::pg_profile_repository;
 use sqlx::{Pool, Postgres, Transaction};
 use validator::Validate;
@@ -22,43 +21,17 @@ async fn create(
     if let Err(e) = body.validate() {
         return ErrorDto::from(e).error_response();
     }
-    let transaction = pool
-        .get_ref()
-        .to_owned()
-        .begin()
-        .await
-        .map_err(|_| Error::DbConnectionError);
-
-    let mut transaction: Transaction<'_, Postgres> = match transaction {
-        Ok(t) => t,
-        Err(e) => return resolve_error(&e),
-    };
     let new_user = ProfileCreationData {
         name: body.name.to_owned(),
         email: body.email.to_owned(),
         password: body.password.to_owned(),
     };
-    let result = create_profile(
-        &mut transaction,
-        pg_profile_repository::create_profile,
-        new_user,
-    )
-    .await;
-
-    let result = match result {
-        TransactionResult::Commit(e) => {
-            if transaction.commit().await.is_err() {
-                return resolve_error(&Error::DbConnectionError);
-            }
-            e
-        }
-        TransactionResult::Rollback(e) => {
-            if transaction.rollback().await.is_err() {
-                return resolve_error(&Error::DbConnectionError);
-            }
-            e
-        }
-    };
+    let result = with_tx!(
+        pool,
+        create_profile(pg_profile_repository::create_profile, new_user),
+        Error::DbConnectionError,
+        resolve_error
+    );
 
     if let Err(error) = result {
         return resolve_error(&error);

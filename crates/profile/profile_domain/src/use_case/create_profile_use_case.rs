@@ -10,7 +10,7 @@ pub async fn create_profile<E, C>(
     mut new_profile: ProfileCreationData,
 ) -> TransactionResult<Result<()>>
 where
-    for<'a> C: CreateProfile<'a, E, Output = Result<()>>,
+    for<'a> C: CreateProfile<'a, E>,
 {
     new_profile.password = "hashed_password".to_owned();
 
