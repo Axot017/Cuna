@@ -5,7 +5,7 @@ use actix_web::{
 };
 
 use common_api::{dto::error_dto::ErrorDto, with_tx};
-use profile_adapters::pg_profile_repository;
+use profile_adapters::{bcrypt_hasher, pg_profile_repository};
 use sqlx::{Pool, Postgres, Transaction};
 use validator::Validate;
 
@@ -26,9 +26,15 @@ async fn create(
         email: body.email.to_owned(),
         password: body.password.to_owned(),
     };
+
     let result = with_tx!(
         pool,
-        create_profile(pg_profile_repository::create_profile, new_user),
+        create_profile(
+            pg_profile_repository::create_profile,
+            bcrypt_hasher::hash,
+            pg_profile_repository::vaildate_profile_unique,
+            new_user
+        ),
         Error::DbConnectionError,
         resolve_error
     );
