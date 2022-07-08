@@ -4,8 +4,8 @@ use profile_domain::{
 };
 use sqlx::PgExecutor;
 
-pub async fn create_profile(
-    executor: impl PgExecutor<'_>,
+pub async fn create_profile<'a, E: PgExecutor<'a>>(
+    executor: E,
     new_profile: &ProfileCreationData,
 ) -> Result<()> {
     sqlx::query!(
@@ -21,4 +21,20 @@ pub async fn create_profile(
     .await
     .map_err(|_| Error::DbConnectionError)
     .map(|_| ())
+}
+
+pub async fn vaildate_profile_unique(
+    executor: impl PgExecutor<'_>,
+    email: &str,
+    name: &str,
+) -> Result<bool> {
+    sqlx::query!(
+        "SELECT id FROM profile WHERE email = $1 OR name = $2",
+        email,
+        name
+    )
+    .fetch_optional(executor)
+    .await
+    .map_err(|_| Error::DbConnectionError)
+    .map(|result| result.is_none())
 }

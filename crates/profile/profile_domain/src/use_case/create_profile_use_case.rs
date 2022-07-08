@@ -1,18 +1,30 @@
-use common_domain::transaction_result::TransactionResult;
+use std::cell::UnsafeCell;
 
-use crate::error::Result;
+use crate::error::{Error, Result};
 use crate::model::profile_creation_data::ProfileCreationData;
-use crate::port::create_profile::CreateProfile;
+use crate::port::{CreateProfile, HashPassword, ValidateProfileUnique};
 
-pub async fn create_profile<E, C>(
-    executor: E,
-    c: C,
+pub async fn create_profile<E, C, H, U>(
+    executor: UnsafeCell<E>,
+    create: C,
+    hash_password: H,
+    validate_profile_unique: U,
     mut new_profile: ProfileCreationData,
-) -> TransactionResult<Result<()>>
+) -> Result<()>
 where
-    for<'a> C: CreateProfile<'a, E, Output = Result<()>>,
+    for<'a> C: CreateProfile<'a, E>,
+    for<'a> H: HashPassword<'a>,
+    for<'a> U: ValidateProfileUnique<'a, E>,
 {
-    new_profile.password = "hashed_password".to_owned();
+    let is_unique = unsafe {
+        validate_profile_unique(executor.get().read(), &new_profile.email, &new_profile.name)
+            .await?
+    };
+    if !is_unique {
+        return Err(Error::NameOrEmailNotUnique);
+    }
 
-    c(executor, &new_profile).await.into()
+    new_profile.password = hash_password(&new_profile.password).await?;
+
+    unsafe { create(executor.get().read(), &new_profile).await }
 }
