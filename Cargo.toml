@@ -4,5 +4,6 @@ members = [
   "crates/profile/*",
   "crates/auth/*",
   "crates/common/*",
+  "crates/macro/*",
 ]
 default-members = ["crates/entrypoint"]
