@@ -3,7 +3,9 @@ use std::cell::UnsafeCell;
 use crate::error::{Error, Result};
 use crate::model::profile_creation_data::ProfileCreationData;
 use crate::port::{CreateProfile, HashPassword, ValidateProfileUnique};
+use with_executor::with_executor;
 
+#[with_executor]
 pub async fn create_profile<E, C, H, U>(
     executor: UnsafeCell<E>,
     create: C,
