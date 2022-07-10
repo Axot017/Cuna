@@ -9,7 +9,7 @@ macro_rules! with_tx {
             Ok(t) => t,
             Err(e) => return $errres(&e),
         };
-        let result = $uc(UnsafeCell::new(&mut tx), $($args),*).await;
+        let result = $uc(&mut tx, $($args),*).await;
         match &result {
             Ok(_) => {
                 if tx.commit().await.is_err() {
