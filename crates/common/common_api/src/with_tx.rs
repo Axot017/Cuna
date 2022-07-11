@@ -1,9 +1,6 @@
 #[macro_export]
 macro_rules! with_tx {
     ($pool:ident, $uc: ident($($args: path),*), $txerr: expr, $errres: tt) => {{
-        use std::mem::ManuallyDrop;
-        use std::cell::UnsafeCell;
-
         let transaction = $pool.get_ref().to_owned().begin().await.map_err(|_| $txerr);
         let mut tx: Transaction<'_, Postgres> = match transaction {
             Ok(t) => t,

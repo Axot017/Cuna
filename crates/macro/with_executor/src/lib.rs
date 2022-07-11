@@ -12,7 +12,7 @@ impl Args {
     }
 }
 
-fn path_to_sting(path: &Path) -> String {
+fn path_to_string(path: &Path) -> String {
     let parts: Vec<String> = path
         .segments
         .pairs()
@@ -29,7 +29,7 @@ impl Fold for Args {
             .into_iter()
             .enumerate()
             .find(|(_, value)| match value {
-                Expr::Path(path) => path_to_sting(&path.path) == *"executor",
+                Expr::Path(path) => path_to_string(&path.path) == *"executor",
                 _ => false,
             });
         if let Some((index, _)) = index_to_replace {
@@ -56,9 +56,8 @@ pub fn with_executor(_metadata: TokenStream, input: TokenStream) -> TokenStream 
 
     let stmts = &block.stmts;
     TokenStream::from(quote! {
-        use std::cell::UnsafeCell;
         #(#attrs)* #vis #sig {
-            let executor = UnsafeCell::new(executor);
+            let executor = std::cell::UnsafeCell::new(executor);
             #(#stmts)*
         }
     })
