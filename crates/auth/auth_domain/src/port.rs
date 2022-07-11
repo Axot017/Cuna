@@ -1,5 +1,4 @@
 use common_domain::define_port;
-use std::future::Future;
 
 use crate::model::auth_data::AuthData;
 
