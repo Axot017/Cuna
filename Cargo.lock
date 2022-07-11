@@ -260,13 +260,22 @@ name = "auth_api"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "auth_domain",
  "chrono",
+ "common_api",
+ "serde",
+ "serde_json",
  "sqlx",
 ]
 
 [[package]]
 name = "auth_domain"
 version = "0.1.0"
+dependencies = [
+ "auth_adapters",
+ "common_domain",
+ "with_executor",
+]
 
 [[package]]
 name = "autocfg"

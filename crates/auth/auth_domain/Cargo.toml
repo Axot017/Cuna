@@ -3,6 +3,7 @@ name = "auth_domain"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+auth_adapters = { path = "../auth_adapters" }
+common_domain = { path = "../../common/common_domain" }
+with_executor = { path = "../../macro/with_executor" }

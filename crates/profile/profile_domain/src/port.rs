@@ -1,6 +1,5 @@
-use std::future::Future;
-
 use common_domain::define_port;
+use std::future::Future;
 
 use crate::{error::Result, model::profile_creation_data::ProfileCreationData};
 
