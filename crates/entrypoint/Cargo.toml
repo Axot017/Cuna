@@ -7,6 +7,7 @@ edition = "2021"
 actix-web = "4"
 auth_api = { path = "../auth/auth_api" }
 common_domain = { path = "../common/common_domain" }
+common_api = { path = "../common/common_api" }
 env_logger = "0.9"
 log = "0.4"
 profile_api = { path = "../profile/profile_api" }
