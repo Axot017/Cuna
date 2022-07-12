@@ -1,5 +1,5 @@
 [package]
-name = "auth_adapters"
+name = "auth_adapter"
 version = "0.1.0"
 edition = "2021"
 

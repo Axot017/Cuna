@@ -263,7 +263,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "auth_adapters"
+name = "auth_adapter"
 version = "0.1.0"
 
 [[package]]
@@ -285,7 +285,7 @@ dependencies = [
 name = "auth_domain"
 version = "0.1.0"
 dependencies = [
- "auth_adapters",
+ "auth_adapter",
  "common_domain",
  "with_executor",
 ]
@@ -426,12 +426,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "common_adapters"
+name = "common_adapter"
 version = "0.1.0"
 dependencies = [
  "async-trait",
  "common_domain",
- "profile_adapters",
+ "profile_adapter",
  "profile_domain",
  "sqlx",
 ]
@@ -1195,7 +1195,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "profile_adapters"
+name = "profile_adapter"
 version = "0.1.0"
 dependencies = [
  "async-trait",
@@ -1213,7 +1213,7 @@ dependencies = [
  "chrono",
  "common_api",
  "common_domain",
- "profile_adapters",
+ "profile_adapter",
  "profile_domain",
  "serde",
  "serde_json",
