@@ -5,7 +5,7 @@ use actix_web::{
 };
 
 use common_api::{dto::error_dto::ErrorDto, with_tx};
-use profile_adapters::{bcrypt_hasher, pg_profile_repository};
+use profile_adapter::{bcrypt_hasher, pg_profile_repository};
 use sqlx::{Pool, Postgres, Transaction};
 use validator::Validate;
 

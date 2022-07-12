@@ -8,7 +8,7 @@ actix-web = "4"
 chrono = "0.4.19"
 common_api = { path = "../../common/common_api" }
 common_domain = { path = "../../common/common_domain" }
-profile_adapters = { path = "../profile_adapters" }
+profile_adapter = { path = "../profile_adapter" }
 profile_domain = { path = "../profile_domain" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"

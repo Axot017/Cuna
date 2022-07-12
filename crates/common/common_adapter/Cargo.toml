@@ -1,12 +1,12 @@
 [package]
-name = "common_adapters"
+name = "common_adapter"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 async-trait = "0.1"
 common_domain = { path = "../common_domain" }
-profile_adapters = { path = "../../profile/profile_adapters" }
+profile_adapter = { path = "../../profile/profile_adapter" }
 profile_domain = { path = "../../profile/profile_domain" }
 sqlx = { version = "0.6", features = [
   "runtime-actix-rustls",
