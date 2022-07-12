@@ -1,6 +1,6 @@
 use serde::Serialize;
 
-#[derive(Serialize, PartialEq, Clone, Debug)]
+#[derive(Serialize, PartialEq, Eq, Clone, Debug)]
 pub struct TokenPairDto {
     pub access_token: String,
     pub refresh_token: String,

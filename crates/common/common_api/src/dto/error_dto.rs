@@ -3,7 +3,7 @@ use std::{collections::HashMap, fmt::Display};
 use actix_web::http::StatusCode;
 use serde::Serialize;
 
-#[derive(Serialize, PartialEq, Clone, Debug)]
+#[derive(Serialize, PartialEq, Eq, Clone, Debug)]
 pub struct ErrorDto {
     pub message: String,
     pub error_code: String,

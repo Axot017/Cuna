@@ -1,4 +1,4 @@
-#[derive(PartialEq, Clone, Debug)]
+#[derive(PartialEq, Eq, Clone, Debug)]
 pub struct TokenPair {
     pub access_token: String,
     pub refresh_token: String,

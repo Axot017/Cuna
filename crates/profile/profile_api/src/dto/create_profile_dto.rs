@@ -1,7 +1,7 @@
 use serde::Deserialize;
 use validator::Validate;
 
-#[derive(Validate, Deserialize, PartialEq, Clone, Debug)]
+#[derive(Validate, Deserialize, PartialEq, Eq, Clone, Debug)]
 pub struct CreateProfileDto {
     #[validate(length(min = 3, max = 30))]
     pub name: String,
