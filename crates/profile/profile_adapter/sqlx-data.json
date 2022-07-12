@@ -1,0 +1,38 @@
+{
+  "db": "PostgreSQL",
+  "40d8bab2c70faaee172c651de3241fe66071ac481d08a8aba2b548a30dcaa713": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Varchar",
+          "Varchar",
+          "Varchar"
+        ]
+      }
+    },
+    "query": "\n        INSERT INTO profile ( name, email, password ) \n        VALUES ($1, $2, $3)\n        "
+  },
+  "c49f165e0e9ef9ad53cae2885a9c1ff4b51cbe1fc1446953df7d1e31726c7859": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int8"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Text"
+        ]
+      }
+    },
+    "query": "SELECT id FROM profile WHERE email = $1 OR name = $2"
+  }
+}
