@@ -1,20 +1,28 @@
-use actix_web::{get, web::ServiceConfig, HttpResponse, Responder};
+use actix_web::{
+    post,
+    web::{self, ServiceConfig},
+    HttpResponse, Responder,
+};
+use sqlx::Postgres;
 
-#[get("/login")]
-async fn login() -> impl Responder {
+use crate::dto::login_data_dto::LoginDataDto;
+
+#[post("/login")]
+async fn login(_json: web::Form<LoginDataDto>, _pool: web::Data<Postgres>) -> impl Responder {
     HttpResponse::Ok().body("Login")
 }
 
-#[get("/refresh")]
+#[post("/refresh")]
 async fn refresh() -> impl Responder {
     HttpResponse::Ok().body("Refresh")
 }
+
 pub trait AuthController {
-    fn configure_auth_controller(self);
+    fn configure_auth_controller(&mut self);
 }
 
-impl AuthController for &mut ServiceConfig {
-    fn configure_auth_controller(self) {
+impl AuthController for ServiceConfig {
+    fn configure_auth_controller(&mut self) {
         self.service(login).service(refresh);
     }
 }
