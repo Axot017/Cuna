@@ -1,6 +1,6 @@
 use std::env;
 
-#[derive(PartialEq, Clone, Debug)]
+#[derive(PartialEq, Eq, Clone, Debug)]
 pub struct Config {
     pub port: String,
     pub db_url: String,
