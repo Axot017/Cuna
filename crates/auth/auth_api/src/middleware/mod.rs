@@ -1,1 +1,1 @@
-pub mod basic_auth_middleware;
+pub mod api_key_middleware;

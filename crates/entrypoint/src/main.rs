@@ -1,5 +1,5 @@
 use actix_web::{get, middleware::Logger, web, App, HttpResponse, HttpServer, Responder};
-use auth_api::{controller::AuthController, middleware::basic_auth_middleware::BasicAuth};
+use auth_api::{controller::AuthController, middleware::api_key_middleware::ApiKeyValidator};
 use common_domain::config::Config;
 use profile_api::controller::ProfileController;
 use sqlx::postgres::PgPoolOptions;
@@ -26,9 +26,15 @@ async fn main() -> std::io::Result<()> {
                 .app_data(web::Data::new(pool.clone()))
                 .app_data(web::Data::new(config.clone()))
                 .wrap(Logger::default())
-                .wrap(BasicAuth::default())
-                .service(web::scope("/auth").configure(|c| c.configure_auth_controller()))
-                .service(web::scope("/profile").configure(|c| c.configure_profile_controller())),
+                .wrap(ApiKeyValidator::default())
+                .service(
+                    web::scope("/v1")
+                        .service(web::scope("/auth").configure(|c| c.configure_auth_controller()))
+                        .service(
+                            web::scope("/profile").configure(|c| c.configure_profile_controller()),
+                        ),
+                )
+                .wrap(ApiKeyValidator::default()),
         )
     })
     .bind(("127.0.0.1", 8080))?
