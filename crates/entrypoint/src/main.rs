@@ -1,6 +1,5 @@
 use actix_web::{get, middleware::Logger, web, App, HttpResponse, HttpServer, Responder};
-use auth_api::controller::AuthController;
-use common_api::middleware::basic_auth_middleware::BasicAuth;
+use auth_api::{controller::AuthController, middleware::basic_auth_middleware::BasicAuth};
 use common_domain::config::Config;
 use profile_api::controller::ProfileController;
 use sqlx::postgres::PgPoolOptions;

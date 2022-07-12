@@ -9,10 +9,9 @@ use actix_web::{
     http::{header, StatusCode},
     web, Error, HttpResponse, ResponseError,
 };
+use common_api::dto::error_dto::ErrorDto;
 use common_domain::config::Config;
 use regex::{Regex, RegexBuilder};
-
-use crate::dto::error_dto::ErrorDto;
 
 pub struct BasicAuth;
 
