@@ -3,12 +3,12 @@ use actix_web::{
     web::{self, ServiceConfig},
     HttpResponse, Responder,
 };
-use sqlx::Postgres;
+use sqlx::{Pool, Postgres};
 
 use crate::dto::login_data_dto::LoginDataDto;
 
 #[post("/login")]
-async fn login(_json: web::Form<LoginDataDto>, _pool: web::Data<Postgres>) -> impl Responder {
+async fn login(_json: web::Form<LoginDataDto>, _pool: web::Data<Pool<Postgres>>) -> impl Responder {
     HttpResponse::Ok().body("Login")
 }
 

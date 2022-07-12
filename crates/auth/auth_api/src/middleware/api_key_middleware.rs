@@ -6,28 +6,27 @@ use std::{
 use actix_web::{
     body::EitherBody,
     dev::{forward_ready, Service, ServiceRequest, ServiceResponse, Transform},
-    http::{header, StatusCode},
+    http::StatusCode,
     web, Error, HttpResponse, ResponseError,
 };
 use common_api::dto::error_dto::ErrorDto;
 use common_domain::config::Config;
-use regex::{Regex, RegexBuilder};
 
-pub struct BasicAuth;
+pub struct ApiKeyValidator;
 
-impl BasicAuth {
+impl ApiKeyValidator {
     pub fn new() -> Self {
-        BasicAuth {}
+        ApiKeyValidator {}
     }
 }
 
-impl Default for BasicAuth {
+impl Default for ApiKeyValidator {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl<S, B> Transform<S, ServiceRequest> for BasicAuth
+impl<S, B> Transform<S, ServiceRequest> for ApiKeyValidator
 where
     S: Service<ServiceRequest, Response = ServiceResponse<B>, Error = Error>,
     S::Future: 'static,
@@ -36,32 +35,25 @@ where
     type Response = ServiceResponse<EitherBody<B>>;
     type Error = Error;
     type InitError = ();
-    type Transform = BasicAuthMiddleware<S>;
+    type Transform = ApiKeyMiddleware<S>;
     type Future = Ready<Result<Self::Transform, Self::InitError>>;
 
     fn new_transform(&self, service: S) -> Self::Future {
-        ready(Ok(BasicAuthMiddleware::new(service)))
+        ready(Ok(ApiKeyMiddleware::new(service)))
     }
 }
 
-pub struct BasicAuthMiddleware<S> {
+pub struct ApiKeyMiddleware<S> {
     service: S,
-    token_pattern: Regex,
 }
 
-impl<S> BasicAuthMiddleware<S> {
+impl<S> ApiKeyMiddleware<S> {
     fn new(service: S) -> Self {
-        Self {
-            service,
-            token_pattern: RegexBuilder::new(r"^basic (.+)$")
-                .case_insensitive(true)
-                .build()
-                .expect("Invalid regex"),
-        }
+        Self { service }
     }
 }
 
-impl<S, B> Service<ServiceRequest> for BasicAuthMiddleware<S>
+impl<S, B> Service<ServiceRequest> for ApiKeyMiddleware<S>
 where
     S: Service<ServiceRequest, Response = ServiceResponse<B>, Error = Error>,
     S::Future: 'static,
@@ -80,11 +72,9 @@ where
 
         let token_valid = req
             .headers()
-            .get(header::AUTHORIZATION)
+            .get("X-Api-Key")
             .and_then(|header| header.to_str().ok())
-            .and_then(|header| self.token_pattern.captures(header))
-            .and_then(|captures| captures.get(1))
-            .map(|token| token.as_str() == config.basic_auth_token)
+            .map(|token| token == config.api_key)
             .unwrap_or(false);
 
         if !token_valid {
