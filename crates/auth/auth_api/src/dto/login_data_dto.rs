@@ -4,4 +4,5 @@ use serde::Deserialize;
 pub struct LoginDataDto {
     pub login: String,
     pub password: String,
+    pub client_secret: String,
 }

@@ -16,21 +16,21 @@ pub fn resolve_error(e: &Error) -> HttpResponse {
 
 fn status_code(e: &Error) -> StatusCode {
     match e {
-        Error::InvalidCredentials => StatusCode::BAD_REQUEST,
+        Error::InvalidLogin | Error::InvalidPassword => StatusCode::BAD_REQUEST,
         _ => StatusCode::INTERNAL_SERVER_ERROR,
     }
 }
 
 fn message(e: &Error) -> &str {
     match e {
-        Error::InvalidCredentials => "Invalid credentials",
+        Error::InvalidLogin | Error::InvalidPassword => "Invalid credentials",
         _ => "Unexpected error",
     }
 }
 
 fn code(e: &Error) -> &str {
     match e {
-        Error::InvalidCredentials => "invalid_credentials",
+        Error::InvalidLogin | Error::InvalidPassword => "invalid_credentials",
         _ => "unexpected_error",
     }
 }
