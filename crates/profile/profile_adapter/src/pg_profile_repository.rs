@@ -23,7 +23,7 @@ pub async fn create_profile<'a, E: PgExecutor<'a>>(
     .map(|_| ())
 }
 
-pub async fn vaildate_profile_unique(
+pub async fn validate_profile_unique(
     executor: impl PgExecutor<'_>,
     email: &str,
     name: &str,

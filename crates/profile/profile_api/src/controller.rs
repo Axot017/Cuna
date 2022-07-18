@@ -32,7 +32,7 @@ async fn create(
         create_profile(
             pg_profile_repository::create_profile,
             bcrypt_hasher::hash,
-            pg_profile_repository::vaildate_profile_unique,
+            pg_profile_repository::validate_profile_unique,
             new_user
         ),
         Error::DbConnectionError,

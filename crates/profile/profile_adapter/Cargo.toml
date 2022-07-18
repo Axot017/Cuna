@@ -4,7 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-async-trait = "0.1"
 bcrypt = "0.13.0"
 common_domain = { path = "../../common/common_domain" }
 profile_domain = { path = "../profile_domain" }
