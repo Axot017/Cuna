@@ -4,6 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-auth_adapter = { path = "../auth_adapter" }
 common_domain = { path = "../../common/common_domain" }
 with_executor = { path = "../../macro/with_executor" }

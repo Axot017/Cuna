@@ -1,3 +1,6 @@
+pub mod entity;
+pub mod pg_auth_repository;
+
 #[cfg(test)]
 mod tests {
     #[test]
