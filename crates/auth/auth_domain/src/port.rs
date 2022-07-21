@@ -7,4 +7,4 @@ define_port!(ValidatePassword = FnOnce<'a>(&'a str, &'a str) -> bool);
 
 define_port!(GetAuthData = FnOnce<'a, E>(E, &'a str) -> Result<AuthData>);
 
-define_port!(GenerateTokenPair = FnOnce<'a>(&'a i128) -> Result<TokenPair>);
+define_port!(GenerateTokenPair = FnOnce<'a>(&'a i64) -> Result<TokenPair>);
