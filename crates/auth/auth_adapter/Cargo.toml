@@ -12,3 +12,4 @@ sqlx = { version = "0.6", features = [
   "chrono",
   "offline",
 ] }
+bcrypt = "0.13.0"
