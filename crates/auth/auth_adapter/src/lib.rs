@@ -1,4 +1,5 @@
 pub mod entity;
+pub mod mapper;
 pub mod pg_auth_repository;
 
 #[cfg(test)]
