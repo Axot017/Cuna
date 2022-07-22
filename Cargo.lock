@@ -267,6 +267,7 @@ name = "auth_adapter"
 version = "0.1.0"
 dependencies = [
  "auth_domain",
+ "bcrypt",
  "common_domain",
  "sqlx",
 ]

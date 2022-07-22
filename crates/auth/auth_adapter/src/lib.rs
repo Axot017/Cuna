@@ -1,5 +1,6 @@
 pub mod entity;
 pub mod mapper;
+pub mod password_validator;
 pub mod pg_auth_repository;
 
 #[cfg(test)]
